@@ -23,6 +23,7 @@ const LearningMode = () => {
     const [c, setC] = useState('');
     const [recovered, setRecovered] = useState('');
     const [showSuccessModal, setShowSuccessModal] = useState(false);
+    const [hasShownModal, setHasShownModal] = useState(false);
     const [primeMode, setPrimeMode] = useState('auto');
     const [keySize, setKeySize] = useState('educational');
 
@@ -110,11 +111,12 @@ const LearningMode = () => {
         if (step >= 6 && d && n && c) {
             const result = decrypt(c, d, n);
             setRecovered(result);
-            if (step === 7 && result === m && !showSuccessModal) {
+            if (step === 7 && result === m && !hasShownModal) {
+                setHasShownModal(true);
                 setTimeout(() => setShowSuccessModal(true), 1500);
             }
         }
-    }, [step, p, q, n, phi, e, m, c, d, pValid, qValid, showSuccessModal]);
+    }, [step, p, q, n, phi, e, m, c, d, pValid, qValid, hasShownModal]);
 
     const renderVisuals = () => {
         switch (step) {
@@ -413,7 +415,7 @@ const LearningMode = () => {
                         {autoPlay ? 'PAUSE' : 'AUTO-PLAY'}
                     </button>
                     <button
-                        onClick={() => { setStep(0); setAutoPlay(false); }}
+                        onClick={() => { setStep(0); setAutoPlay(false); setHasShownModal(false); }}
                         className="p-2 md:p-2.5 glass-cyan rounded-lg md:rounded-xl text-white hover:glow-cyan transition-all border border-white/10"
                         title="Reset Tutorial"
                     >

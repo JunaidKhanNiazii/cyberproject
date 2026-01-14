@@ -27,12 +27,10 @@ const Dashboard = () => {
     useEffect(() => {
         if (!user) return;
 
-        // DIAGNOSTIC QUERY: Simplfied to isolate rule vs index issue
-        console.log("Current Auth UID:", user.uid);
         const q = query(
             collection(db, 'history'),
-            where('userId', '==', user.uid)
-            // orderBy('timestamp', 'desc') // Temporarily commented out for diagnostics
+            where('userId', '==', user.uid),
+            orderBy('timestamp', 'desc')
         );
 
         const unsubscribe = onSnapshot(q, (snapshot) => {
@@ -42,12 +40,7 @@ const Dashboard = () => {
             }));
             setHistory(historyData);
         }, (err) => {
-            console.error("CRITICAL Firestore Error:", err);
-            console.error("Error Code:", err.code);
-            console.error("Error Message:", err.message);
-            if (err.message.includes('index')) {
-                console.warn("ACTION REQUIRED: A composite index is likely missing. Check the link above in the Firestore error log to create it.");
-            }
+            console.error("Firestore error:", err);
         });
 
         return () => unsubscribe();
