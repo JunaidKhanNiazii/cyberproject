@@ -27,10 +27,12 @@ const Dashboard = () => {
     useEffect(() => {
         if (!user) return;
 
+        // DIAGNOSTIC QUERY: Simplfied to isolate rule vs index issue
+        console.log("Current Auth UID:", user.uid);
         const q = query(
             collection(db, 'history'),
-            where('userId', '==', user.uid),
-            orderBy('timestamp', 'desc')
+            where('userId', '==', user.uid)
+            // orderBy('timestamp', 'desc') // Temporarily commented out for diagnostics
         );
 
         const unsubscribe = onSnapshot(q, (snapshot) => {
