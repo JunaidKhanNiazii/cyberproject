@@ -8,20 +8,38 @@ import Services from './pages/Services';
 import About from './pages/About';
 import Contact from './pages/Contact';
 
+import { AuthProvider } from './context/AuthContext';
+import Login from './pages/Login';
+import Signup from './pages/Signup';
+
+import ProtectedRoute from './components/ProtectedRoute';
+
 function App() {
   return (
-    <Router>
-      <MainLayout>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/learning" element={<LearningMode />} />
-          <Route path="/services" element={<Services />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/contact" element={<Contact />} />
-        </Routes>
-      </MainLayout>
-    </Router>
+    <AuthProvider>
+      <Router>
+        <MainLayout>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/dashboard" element={
+              <ProtectedRoute>
+                <Dashboard />
+              </ProtectedRoute>
+            } />
+            <Route path="/learning" element={
+              <ProtectedRoute>
+                <LearningMode />
+              </ProtectedRoute>
+            } />
+            <Route path="/services" element={<Services />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
+          </Routes>
+        </MainLayout>
+      </Router>
+    </AuthProvider>
   );
 }
 

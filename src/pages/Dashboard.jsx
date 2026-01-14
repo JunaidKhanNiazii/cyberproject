@@ -1,9 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Key, Shield, Lock, Unlock, Copy, RefreshCw, Cpu, Activity, AlertCircle, CheckCircle } from 'lucide-react';
+import { db } from '../firebase/config';
+import { collection, addDoc, query, where, orderBy, onSnapshot, serverTimestamp } from 'firebase/firestore';
+import { useAuth } from '../context/AuthContext';
 import { generateRSA, encrypt, decrypt, calculateRSA, generateRandomPrime, isPrime } from '../utils/rsa';
 
 const Dashboard = () => {
+    const { user } = useAuth();
     const [keys, setKeys] = useState(null);
     const [plaintext, setPlaintext] = useState('');
     const [ciphertext, setCiphertext] = useState('');
@@ -12,12 +16,50 @@ const Dashboard = () => {
     const [copyStatus, setCopyStatus] = useState('');
     const [showSuccessModal, setShowSuccessModal] = useState(false);
     const [keyMode, setKeyMode] = useState('auto'); // 'auto' or 'manual'
+    const [history, setHistory] = useState([]);
 
     // Manual Prime State
     const [manualP, setManualP] = useState('');
     const [manualQ, setManualQ] = useState('');
     const [manualE, setManualE] = useState('65537');
     const [error, setError] = useState('');
+
+    useEffect(() => {
+        if (!user) return;
+
+        const q = query(
+            collection(db, 'history'),
+            where('userId', '==', user.uid),
+            orderBy('timestamp', 'desc')
+        );
+
+        const unsubscribe = onSnapshot(q, (snapshot) => {
+            const historyData = snapshot.docs.map(doc => ({
+                id: doc.id,
+                ...doc.data()
+            }));
+            setHistory(historyData);
+        }, (err) => {
+            console.error("Firestore error:", err);
+        });
+
+        return () => unsubscribe();
+    }, [user]);
+
+    const saveToHistory = async (type, input, output) => {
+        if (!user) return;
+        try {
+            await addDoc(collection(db, 'history'), {
+                userId: user.uid,
+                type,
+                input: input.toString(),
+                output: output.toString(),
+                timestamp: serverTimestamp()
+            });
+        } catch (err) {
+            console.error("Failed to save to history", err);
+        }
+    };
 
     const handleGenerateKeys = () => {
         setIsLoading(true);
@@ -66,18 +108,19 @@ const Dashboard = () => {
         }
     };
 
-    const handleEncrypt = () => {
+    const handleEncrypt = async () => {
         if (!plaintext || !keys) return;
 
         try {
             const result = encrypt(plaintext, keys.e, keys.n);
             setCiphertext(result);
+            await saveToHistory('Encryption', plaintext, result);
         } catch (error) {
             console.error("Encryption failed", error);
         }
     };
 
-    const handleDecrypt = () => {
+    const handleDecrypt = async () => {
         if (!ciphertext || !keys) return;
 
         try {
@@ -86,6 +129,7 @@ const Dashboard = () => {
             if (result === plaintext && plaintext !== '') {
                 setTimeout(() => setShowSuccessModal(true), 500);
             }
+            await saveToHistory('Decryption', ciphertext, result);
         } catch (error) {
             console.error("Decryption failed", error);
         }
@@ -390,6 +434,71 @@ const Dashboard = () => {
                     Copied {copyStatus.toUpperCase()} to clipboard
                 </motion.div>
             )}
+
+            {/* History Section */}
+            <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.6 }}
+                className="mt-12"
+            >
+                <div className="flex items-center justify-between mb-6">
+                    <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 bg-cyber-purple/10 rounded-xl flex items-center justify-center border border-cyber-purple/20">
+                            <Activity className="w-5 h-5 text-cyber-purple" />
+                        </div>
+                        <div>
+                            <h3 className="text-xl font-black text-white uppercase tracking-tight">Session History</h3>
+                            <p className="text-[10px] text-gray-500 font-bold uppercase tracking-widest">TRANSACTION LOGS • SECURELY SYNCED</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="grid gap-4">
+                    {history.length > 0 ? (
+                        history.map((item, index) => (
+                            <motion.div
+                                key={item.id}
+                                initial={{ opacity: 0, x: -20 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                transition={{ delay: index * 0.1 }}
+                                className="glass p-4 rounded-2xl border-white/5 flex flex-col md:flex-row md:items-center justify-between gap-4 group hover:bg-white/5 transition-all"
+                            >
+                                <div className="flex items-center gap-4">
+                                    <div className={`w-8 h-8 rounded-lg flex items-center justify-center border ${item.type === 'Encryption'
+                                        ? 'bg-cyber-cyan/10 border-cyber-cyan/20 text-cyber-cyan'
+                                        : 'bg-cyber-purple/10 border-cyber-purple/20 text-cyber-purple'
+                                        }`}>
+                                        {item.type === 'Encryption' ? <Lock className="w-4 h-4" /> : <Unlock className="w-4 h-4" />}
+                                    </div>
+                                    <div>
+                                        <p className="text-xs font-black text-white uppercase tracking-wider">{item.type}</p>
+                                        <p className="text-[9px] text-gray-500 font-mono">
+                                            {item.timestamp?.toDate().toLocaleString()}
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div className="flex-grow grid grid-cols-1 md:grid-cols-2 gap-4 max-w-2xl">
+                                    <div className="bg-black/20 p-2 rounded-lg border border-white/5">
+                                        <span className="text-[8px] text-gray-600 block mb-1 uppercase font-bold">Input</span>
+                                        <p className="text-[10px] font-mono text-gray-300 truncate">{item.input}</p>
+                                    </div>
+                                    <div className="bg-black/20 p-2 rounded-lg border border-white/5">
+                                        <span className="text-[8px] text-gray-600 block mb-1 uppercase font-bold">Output</span>
+                                        <p className="text-[10px] font-mono text-cyber-cyan truncate">{item.output}</p>
+                                    </div>
+                                </div>
+                            </motion.div>
+                        ))
+                    ) : (
+                        <div className="text-center py-12 glass rounded-3xl border-dashed border-white/10">
+                            <Activity className="w-12 h-12 text-gray-700 mx-auto mb-4 opacity-20" />
+                            <p className="text-gray-600 text-[10px] font-black uppercase tracking-widest">No activity detected in the current neural session</p>
+                        </div>
+                    )}
+                </div>
+            </motion.div>
         </div>
     );
 };
