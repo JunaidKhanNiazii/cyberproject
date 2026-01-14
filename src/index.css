@@ -1,0 +1,88 @@
+@import "tailwindcss";
+
+@theme {
+  --color-cyber-black: #020205;
+  --color-cyber-navy: #0a0a1a;
+  --color-cyber-cyan: #00f2ff;
+  --color-cyber-blue: #3b82f6;
+  --color-cyber-purple: #a855f7;
+  --color-cyber-green: #10b981;
+}
+
+:root {
+  background-color: var(--color-cyber-black);
+  color: #e2e8f0;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+.font-mono {
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+}
+
+/* Glassmorphism utility */
+.glass {
+  background: rgba(10, 10, 26, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.glass-cyan {
+  border-color: rgba(0, 242, 255, 0.3);
+  box-shadow: 0 0 15px rgba(0, 242, 255, 0.1);
+}
+
+/* Cyber Glows */
+.glow-cyan {
+  text-shadow: 0 0 8px rgba(0, 242, 255, 0.8);
+}
+
+.glow-blue {
+  text-shadow: 0 0 8px rgba(59, 130, 246, 0.8);
+}
+
+.bg-cyber-gradient {
+  background: radial-gradient(circle at center, #0a0a1a 0%, #020205 100%);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #020205;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1e293b;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #334155;
+}
+
+@layer utilities {
+  .text-glow-cyan {
+    text-shadow: 0 0 10px rgba(0, 242, 255, 0.5);
+  }
+}
+
+/* Animations */
+@keyframes matrix {
+  0% {
+    background-position: 0% 0%;
+  }
+
+  100% {
+    background-position: 0% 100%;
+  }
+}
+
+.matrix-bg {
+  background-image: linear-gradient(rgba(0, 242, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 242, 255, 0.05) 1px, transparent 1px);
+  background-size: 30px 30px;
+  animation: matrix 20s linear infinite;
+}
