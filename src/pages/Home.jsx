@@ -28,14 +28,14 @@ const Home = () => {
             </div>
 
             {/* Hero Section - Split View (Content Left, Visuals Right) */}
-            <section className="relative min-h-screen flex items-center justify-center px-4 py-32 overflow-hidden z-10">
+            <section className="relative min-h-screen flex items-center justify-center px-4 py-20 md:py-32 overflow-hidden z-10">
                 <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center w-full">
                     {/* Left Side: Content */}
                     <motion.div
                         initial={{ opacity: 0, x: -50 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ duration: 1, ease: "easeOut" }}
-                        className="relative z-20 flex flex-col items-start text-left"
+                        className="relative z-20 flex flex-col items-center lg:items-start text-center lg:text-left"
                     >
                         <motion.div
                             initial={{ opacity: 0, y: 20 }}
@@ -54,11 +54,11 @@ const Home = () => {
                             Secure <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyber-cyan to-cyber-blue drop-shadow-[0_0_15px_rgba(0,242,255,0.3)]">RSA Engine</span>
                         </h1>
 
-                        <p className="text-base text-gray-400 mb-10 max-w-lg leading-relaxed font-medium">
+                        <p className="text-sm md:text-base text-gray-400 mb-10 max-w-lg leading-relaxed font-medium">
                             Enterprise-grade cryptographic foundations. Generate keys and encrypt data with mathematical precision.
                         </p>
 
-                        <div className="flex flex-wrap gap-4 items-center justify-start mb-12">
+                        <div className="flex flex-wrap gap-4 items-center justify-center lg:justify-start mb-12">
                             <Link
                                 to="/dashboard"
                                 className="relative px-8 py-4 bg-cyber-cyan text-cyber-black font-black uppercase tracking-widest rounded-xl flex items-center gap-3 hover:bg-white transition-all shadow-[0_0_30px_rgba(0,242,255,0.2)] hover:shadow-[0_0_50px_rgba(0,242,255,0.4)] group overflow-hidden text-sm"
@@ -83,14 +83,14 @@ const Home = () => {
                         initial={{ opacity: 0, scale: 0.8, x: 50 }}
                         animate={{ opacity: 1, scale: 1, x: 0 }}
                         transition={{ duration: 1.2, ease: "circOut", delay: 0.3 }}
-                        className="relative z-20 flex justify-center lg:justify-end"
+                        className="relative z-20 flex justify-center"
                     >
-                        <div className="relative group/centerpiece">
+                        <div className="relative group/centerpiece scale-75 md:scale-90 lg:scale-100">
                             {/* Outer Pulsing Glow */}
                             <div className="absolute -inset-20 bg-cyber-cyan/10 rounded-full blur-[100px] animate-pulse pointer-events-none"></div>
 
                             <div className="relative p-1 bg-gradient-to-br from-cyber-cyan/20 via-transparent to-cyber-purple/20 rounded-[3rem] backdrop-blur-[2px]">
-                                <div className="glass p-16 rounded-[2.8rem] border-white/5 shadow-2xl relative overflow-hidden flex flex-col items-center">
+                                <div className="glass p-8 md:p-16 rounded-[2.8rem] border-white/5 shadow-2xl relative overflow-hidden flex flex-col items-center">
                                     {/* Scanning Line Effect */}
                                     <motion.div
                                         animate={{ y: ["-100%", "200%"] }}
@@ -130,13 +130,13 @@ const Home = () => {
                                         className="relative z-20"
                                     >
                                         <div className="relative">
-                                            <Shield className="w-56 h-56 text-cyber-cyan mx-auto drop-shadow-[0_0_50px_rgba(0,242,255,0.3)] group-hover/centerpiece:scale-105 transition-transform duration-500" />
+                                            <Shield className="w-40 h-40 md:w-56 h-56 text-cyber-cyan mx-auto drop-shadow-[0_0_50px_rgba(0,242,255,0.3)] group-hover/centerpiece:scale-105 transition-transform duration-500" />
                                             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
                                                 <motion.div
                                                     animate={{ opacity: [0.1, 0.3, 0.1] }}
                                                     transition={{ duration: 2, repeat: Infinity }}
                                                 >
-                                                    <Lock className="w-14 h-14 text-white" />
+                                                    <Lock className="w-10 h-10 md:w-14 h-14 text-white" />
                                                 </motion.div>
                                             </div>
                                         </div>
@@ -145,30 +145,30 @@ const Home = () => {
                                         <motion.div
                                             animate={{ rotate: 360, scale: [1, 1.05, 1] }}
                                             transition={{ rotate: { duration: 20, repeat: Infinity, ease: "linear" }, scale: { duration: 4, repeat: Infinity } }}
-                                            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[18rem] h-[18rem] border-2 border-dashed border-cyber-cyan/20 rounded-full"
+                                            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[12rem] h-[12rem] md:w-[18rem] md:h-[18rem] border-2 border-dashed border-cyber-cyan/20 rounded-full"
                                         ></motion.div>
 
                                         <motion.div
                                             animate={{ rotate: -360 }}
                                             transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
-                                            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[22rem] h-[22rem] border border-cyber-purple/15 rounded-full"
+                                            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[16rem] h-[16rem] md:w-[22rem] md:h-[22rem] border border-cyber-purple/15 rounded-full"
                                         ></motion.div>
 
                                         <motion.div
                                             animate={{ rotate: 180, opacity: [0.1, 0.2, 0.1] }}
                                             transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
-                                            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[26rem] h-[26rem] border border-white/5 rounded-full blur-[1px]"
+                                            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[20rem] h-[20rem] md:w-[26rem] md:h-[26rem] border border-white/5 rounded-full blur-[1px]"
                                         ></motion.div>
                                     </motion.div>
 
-                                    <div className="mt-12 grid grid-cols-2 gap-6 relative z-20 w-full max-w-xs">
-                                        <div className="p-5 bg-white/5 rounded-2xl border border-white/10 hover:border-cyber-cyan/40 transition-all group/stat flex flex-col items-center backdrop-blur-md">
-                                            <div className="text-cyber-cyan font-mono text-2xl font-black group-hover/stat:scale-110 transition-transform">4096</div>
-                                            <div className="text-gray-500 text-[9px] font-black uppercase tracking-[0.2em] mt-2 text-center">Depth</div>
+                                    <div className="mt-8 md:mt-12 grid grid-cols-2 gap-4 md:gap-6 relative z-20 w-full max-w-xs">
+                                        <div className="p-4 md:p-5 bg-white/5 rounded-2xl border border-white/10 hover:border-cyber-cyan/40 transition-all group/stat flex flex-col items-center backdrop-blur-md">
+                                            <div className="text-cyber-cyan font-mono text-xl md:text-2xl font-black group-hover/stat:scale-110 transition-transform">4096</div>
+                                            <div className="text-gray-500 text-[8px] md:text-[9px] font-black uppercase tracking-[0.2em] mt-2 text-center">Depth</div>
                                         </div>
-                                        <div className="p-5 bg-white/5 rounded-2xl border border-white/10 hover:border-cyber-purple/40 transition-all group/stat flex flex-col items-center backdrop-blur-md">
-                                            <div className="text-cyber-purple font-mono text-2xl font-black group-hover/stat:scale-110 transition-transform">SEC</div>
-                                            <div className="text-gray-500 text-[9px] font-black uppercase tracking-[0.2em] mt-2 text-center">Neural</div>
+                                        <div className="p-4 md:p-5 bg-white/5 rounded-2xl border border-white/10 hover:border-cyber-purple/40 transition-all group/stat flex flex-col items-center backdrop-blur-md">
+                                            <div className="text-cyber-purple font-mono text-xl md:text-2xl font-black group-hover/stat:scale-110 transition-transform">SEC</div>
+                                            <div className="text-gray-500 text-[8px] md:text-[9px] font-black uppercase tracking-[0.2em] mt-2 text-center">Neural</div>
                                         </div>
                                     </div>
                                 </div>

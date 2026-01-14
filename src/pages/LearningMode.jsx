@@ -122,25 +122,21 @@ const LearningMode = () => {
                 return (
                     <div className="flex flex-col items-center gap-6 py-4 w-full max-w-4xl">
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 w-full">
-                            <div className="glass p-6 rounded-[2rem] border-white/5 space-y-6">
-                                <div className="flex items-center justify-between mb-4">
+                            <div className="glass p-5 md:p-6 rounded-2xl md:rounded-[2rem] border-white/5 space-y-6">
+                                <div className="flex items-center justify-between mb-2 md:mb-4">
                                     <div className="flex items-center gap-2">
                                         <Target className="w-4 h-4 text-cyber-cyan" />
-                                        <span className="text-[10px] font-black uppercase tracking-widest text-cyber-cyan">Prime Control Center</span>
+                                        <span className="text-[10px] font-black uppercase tracking-widest text-cyber-cyan">Prime Center</span>
                                     </div>
-                                    <div className="flex gap-2">
-                                        <div className="flex p-1 bg-white/5 rounded-xl border border-white/10 scale-75">
-                                            <button onClick={() => setPrimeMode('auto')} className={`px-4 py-1 rounded-lg text-xs font-bold transition-all ${primeMode === 'auto' ? 'bg-cyber-cyan text-cyber-black shadow-lg shadow-cyber-cyan/30' : 'text-gray-500 hover:text-white'}`}>AUTO</button>
-                                            <button onClick={() => setPrimeMode('manual')} className={`px-4 py-1 rounded-lg text-xs font-bold transition-all ${primeMode === 'manual' ? 'bg-cyber-cyan text-cyber-black shadow-lg shadow-cyber-cyan/30' : 'text-gray-500 hover:text-white'}`}>MANUAL</button>
-                                        </div>
-                                        <div className="flex p-1 bg-white/5 rounded-xl border border-white/10 scale-75">
-                                            <button onClick={() => setKeySize('educational')} className={`px-4 py-1 rounded-lg text-xs font-bold transition-all ${keySize === 'educational' ? 'bg-cyber-purple text-white shadow-lg' : 'text-gray-500 hover:text-white'}`}>EDU</button>
-                                            <button onClick={() => setKeySize('standard')} className={`px-4 py-1 rounded-lg text-xs font-bold transition-all ${keySize === 'standard' ? 'bg-cyber-purple text-white shadow-lg' : 'text-gray-500 hover:text-white'}`}>STD</button>
+                                    <div className="flex gap-1 md:gap-2">
+                                        <div className="flex p-0.5 md:p-1 bg-white/5 rounded-lg border border-white/10 scale-75 md:scale-90">
+                                            <button onClick={() => setPrimeMode('auto')} className={`px-2 md:px-4 py-1 rounded-md md:rounded-lg text-[10px] md:text-xs font-bold transition-all ${primeMode === 'auto' ? 'bg-cyber-cyan text-cyber-black shadow-lg shadow-cyber-cyan/30' : 'text-gray-500 hover:text-white'}`}>AUTO</button>
+                                            <button onClick={() => setPrimeMode('manual')} className={`px-2 md:px-4 py-1 rounded-md md:rounded-lg text-[10px] md:text-xs font-bold transition-all ${primeMode === 'manual' ? 'bg-cyber-cyan text-cyber-black shadow-lg shadow-cyber-cyan/30' : 'text-gray-500 hover:text-white'}`}>MANUAL</button>
                                         </div>
                                     </div>
                                 </div>
 
-                                <div className="flex justify-around items-center">
+                                <div className="flex justify-around items-center gap-2">
                                     <div className="flex flex-col items-center gap-2">
                                         <label className="text-[10px] text-gray-500 uppercase font-bold tracking-widest">Prime P</label>
                                         <input
@@ -149,10 +145,10 @@ const LearningMode = () => {
                                             onChange={(e) => handlePChange(e.target.value)}
                                             readOnly={primeMode === 'auto'}
                                             placeholder="P"
-                                            className={`w-24 h-24 bg-white/5 border-2 rounded-3xl text-center text-2xl font-black font-mono focus:outline-none transition-all ${pValid ? 'border-cyber-cyan/50 text-cyber-cyan glow-cyan' : 'border-white/10 text-gray-600'}`}
+                                            className={`w-16 h-16 md:w-24 md:h-24 bg-white/5 border-2 rounded-2xl md:rounded-3xl text-center text-xl md:text-2xl font-black font-mono focus:outline-none transition-all ${pValid ? 'border-cyber-cyan/50 text-cyber-cyan glow-cyan' : 'border-white/10 text-gray-600'}`}
                                         />
                                     </div>
-                                    <span className="text-2xl font-bold text-white/10 mt-6">×</span>
+                                    <span className="text-xl font-bold text-white/10 mt-6">×</span>
                                     <div className="flex flex-col items-center gap-2">
                                         <label className="text-[10px] text-gray-500 uppercase font-bold tracking-widest">Prime Q</label>
                                         <input
@@ -161,45 +157,45 @@ const LearningMode = () => {
                                             onChange={(e) => handleQChange(e.target.value)}
                                             readOnly={primeMode === 'auto'}
                                             placeholder="Q"
-                                            className={`w-24 h-24 bg-white/5 border-2 rounded-3xl text-center text-2xl font-black font-mono focus:outline-none transition-all ${qValid ? 'border-cyber-purple/50 text-cyber-purple glow-blue' : 'border-white/10 text-gray-600'}`}
+                                            className={`w-16 h-16 md:w-24 md:h-24 bg-white/5 border-2 rounded-2xl md:rounded-3xl text-center text-xl md:text-2xl font-black font-mono focus:outline-none transition-all ${qValid ? 'border-cyber-purple/50 text-cyber-purple glow-blue' : 'border-white/10 text-gray-600'}`}
                                         />
                                     </div>
                                 </div>
                                 {primeMode === 'auto' && (
-                                    <button onClick={handleRandomPrimes} className="w-full py-3 bg-cyber-cyan/10 border border-cyber-cyan/30 text-cyber-cyan rounded-2xl text-[10px] font-black uppercase tracking-widest hover:bg-cyber-cyan hover:text-cyber-black transition-all flex items-center justify-center gap-2">
+                                    <button onClick={handleRandomPrimes} className="w-full py-3 bg-cyber-cyan/10 border border-cyber-cyan/30 text-cyber-cyan rounded-xl md:rounded-2xl text-[10px] font-black uppercase tracking-widest hover:bg-cyber-cyan hover:text-cyber-black transition-all flex items-center justify-center gap-2">
                                         <RefreshCw className="w-3 h-3" /> Auto-Generate Foundation
                                     </button>
                                 )}
                             </div>
-                            <div className="glass p-6 rounded-[2rem] border-white/5 grid grid-cols-2 gap-4">
-                                <div className="col-span-2 flex items-center gap-2 mb-2">
+                            <div className="glass p-5 md:p-6 rounded-2xl md:rounded-[2rem] border-white/5 grid grid-cols-2 gap-3 md:gap-4">
+                                <div className="col-span-2 flex items-center gap-2 mb-1 md:mb-2">
                                     <Calculator className="w-4 h-4 text-cyber-purple" />
-                                    <span className="text-[10px] font-black uppercase tracking-widest text-cyber-purple">Real-time Computation Engine</span>
+                                    <span className="text-[10px] font-black uppercase tracking-widest text-cyber-purple">Real-time Engine</span>
                                 </div>
-                                <div className="p-4 bg-white/5 rounded-2xl border border-white/5">
-                                    <span className="text-[9px] text-gray-500 font-bold uppercase block mb-1">Modulus (n)</span>
-                                    <div className="text-xl font-mono font-black text-white truncate">{n?.toString() || '?'}</div>
-                                    <span className="text-[8px] text-cyber-cyan/50 font-mono">p * q</span>
+                                <div className="p-3 md:p-4 bg-white/5 rounded-xl md:rounded-2xl border border-white/5 overflow-hidden">
+                                    <span className="text-[8px] md:text-[9px] text-gray-500 font-bold uppercase block mb-1">Modulus (n)</span>
+                                    <div className="text-sm md:text-xl font-mono font-black text-white truncate">{n?.toString() || '?'}</div>
+                                    <span className="text-[7px] md:text-[8px] text-cyber-cyan/50 font-mono">p * q</span>
                                 </div>
-                                <div className="p-4 bg-white/5 rounded-2xl border border-white/5">
-                                    <span className="text-[9px] text-gray-500 font-bold uppercase block mb-1">Totient (φ)</span>
-                                    <div className="text-xl font-mono font-black text-white truncate">{phi?.toString() || '?'}</div>
-                                    <span className="text-[8px] text-cyber-purple/50 font-mono">(p-1)*(q-1)</span>
+                                <div className="p-3 md:p-4 bg-white/5 rounded-xl md:rounded-2xl border border-white/5 overflow-hidden">
+                                    <span className="text-[8px] md:text-[9px] text-gray-500 font-bold uppercase block mb-1">Totient (φ)</span>
+                                    <div className="text-sm md:text-xl font-mono font-black text-white truncate">{phi?.toString() || '?'}</div>
+                                    <span className="text-[7px] md:text-[8px] text-cyber-purple/50 font-mono">(p-1)*(q-1)</span>
                                 </div>
-                                <div className="p-4 bg-cyber-purple/5 rounded-2xl border border-cyber-purple/20 shadow-[0_0_20px_rgba(168,85,247,0.1)]">
-                                    <span className="text-[9px] text-cyber-purple font-black uppercase block mb-1">Public Key (e)</span>
-                                    <div className="text-xl font-mono font-black text-white">{e.toString()}</div>
-                                    <span className="text-[8px] text-white/30 font-mono">Input for Encryption</span>
+                                <div className="p-3 md:p-4 bg-cyber-purple/5 rounded-xl md:rounded-2xl border border-cyber-purple/20 shadow-[0_0_20px_rgba(168,85,247,0.1)]">
+                                    <span className="text-[8px] md:text-[9px] text-cyber-purple font-black uppercase block mb-1">Public Key (e)</span>
+                                    <div className="text-sm md:text-xl font-mono font-black text-white">{e.toString()}</div>
+                                    <span className="text-[7px] md:text-[8px] text-white/30 font-mono">Input for encryption</span>
                                 </div>
-                                <div className="p-4 bg-cyber-green/5 rounded-2xl border border-cyber-green/20 shadow-[0_0_20px_rgba(16,185,129,0.1)]">
-                                    <span className="text-[9px] text-cyber-green font-black uppercase block mb-1">Private Key (d)</span>
-                                    <div className="text-xl font-mono font-black text-white truncate">{d?.toString() || '?'}</div>
-                                    <span className="text-[8px] text-white/30 font-mono">Secret for Decryption</span>
+                                <div className="p-3 md:p-4 bg-cyber-green/5 rounded-xl md:rounded-2xl border border-cyber-green/20 shadow-[0_0_20px_rgba(16,185,129,0.1)] overflow-hidden">
+                                    <span className="text-[8px] md:text-[9px] text-cyber-green font-black uppercase block mb-1">Private Key (d)</span>
+                                    <div className="text-sm md:text-xl font-mono font-black text-white truncate">{d?.toString() || '?'}</div>
+                                    <span className="text-[7px] md:text-[8px] text-white/30 font-mono">Secret for decryption</span>
                                 </div>
                             </div>
                         </div>
-                        <div className="mt-4 px-8 py-3 bg-cyber-cyan/5 border border-cyber-cyan/20 rounded-2xl">
-                            <p className="text-[10px] text-cyber-cyan font-black uppercase tracking-widest text-center">
+                        <div className="mt-2 md:mt-4 px-6 md:px-8 py-3 bg-cyber-cyan/5 border border-cyber-cyan/20 rounded-xl md:rounded-2xl w-full">
+                            <p className="text-[8px] md:text-[10px] text-cyber-cyan font-black uppercase tracking-widest text-center">
                                 Status: Key Foundation Solidified. Ready for Cryptographic Operations.
                             </p>
                         </div>
@@ -251,13 +247,13 @@ const LearningMode = () => {
                 );
             case 3:
                 return (
-                    <div className="py-6 flex flex-col items-center gap-8 w-full max-w-4xl text-center">
-                        <div className="w-full bg-cyber-purple/5 border border-cyber-purple/20 rounded-[3rem] p-10 text-center shadow-2xl relative overflow-hidden">
-                            <div className="absolute -bottom-10 -left-10 opacity-5 rotate-12"><Lock className="w-40 h-40 text-cyber-purple" /></div>
-                            <h3 className="text-xs font-black text-cyber-purple uppercase mb-8 flex items-center justify-center gap-3 tracking-[0.3em]">
-                                <Cpu className="w-5 h-5" /> Phase II Logic: Modular Exponentiation
+                    <div className="py-4 md:py-6 flex flex-col items-center gap-6 md:gap-8 w-full max-w-4xl text-center">
+                        <div className="w-full bg-cyber-purple/5 border border-cyber-purple/20 rounded-3xl md:rounded-[3rem] p-6 md:p-10 text-center shadow-2xl relative overflow-hidden">
+                            <div className="absolute -bottom-10 -left-10 opacity-5 rotate-12"><Lock className="w-24 h-24 md:w-40 md:h-40 text-cyber-purple" /></div>
+                            <h3 className="text-[10px] font-black text-cyber-purple uppercase mb-6 md:mb-8 flex items-center justify-center gap-3 tracking-[0.3em]">
+                                <Cpu className="w-4 h-4 md:w-5 md:h-5" /> Phase II Logic: Modular Exponentiation
                             </h3>
-                            <div className="flex items-center justify-center gap-6 text-4xl font-mono font-black text-white mb-10">
+                            <div className="flex items-center justify-center gap-3 md:gap-6 text-xl md:text-4xl font-mono font-black text-white mb-8 md:mb-10">
                                 <span className="text-cyber-cyan">m</span>
                                 <span className="text-gray-500">^</span>
                                 <span className="text-cyber-purple">e</span>
@@ -266,42 +262,42 @@ const LearningMode = () => {
                                 <span className="text-gray-500">=</span>
                                 <span className="text-cyber-purple">c</span>
                             </div>
-                            <div className="flex flex-wrap gap-4 justify-center">
+                            <div className="flex flex-wrap gap-2 md:gap-4 justify-center">
                                 {m.split('').map((char, i) => (
-                                    <div key={i} className="flex flex-col items-center gap-2 p-4 bg-white/5 rounded-2xl border border-white/5 min-w-[120px]">
-                                        <div className="text-[10px] text-cyber-cyan font-mono font-bold">{char} ({char.charCodeAt(0)})</div>
-                                        <div className="text-lg font-mono font-black text-white">→ {c.split(',')[i]?.substring(0, 6)}...</div>
+                                    <div key={i} className="flex flex-col items-center gap-1 p-2 md:p-4 bg-white/5 rounded-xl md:rounded-2xl border border-white/5 min-w-[80px] md:min-w-[120px]">
+                                        <div className="text-[8px] md:text-[10px] text-cyber-cyan font-mono font-bold">{char} ({char.charCodeAt(0)})</div>
+                                        <div className="text-sm md:text-lg font-mono font-black text-white truncate w-full">→ {c.split(',')[i]?.substring(0, 6)}...</div>
                                     </div>
                                 ))}
                             </div>
                         </div>
-                        <div className="px-8 py-4 bg-cyber-purple/10 border border-cyber-purple/30 rounded-2xl">
-                            <span className="text-[10px] text-cyber-purple font-black uppercase tracking-widest">Output: Ciphertext Encrypted Successfully</span>
+                        <div className="px-6 md:px-8 py-3 md:py-4 bg-cyber-purple/10 border border-cyber-purple/30 rounded-xl md:rounded-2xl">
+                            <span className="text-[10px] text-cyber-purple font-black uppercase tracking-widest">Output: Ciphertext Encrypted</span>
                         </div>
                     </div>
                 );
             case 4:
                 return (
-                    <div className="py-6 flex flex-col items-center gap-8 w-full max-w-3xl text-center">
-                        <div className="grid grid-cols-2 gap-6 w-full">
-                            <div className="glass p-8 rounded-3xl border-white/5 shadow-xl relative overflow-hidden text-left">
-                                <div className="absolute top-0 right-0 p-4 opacity-10"><Fingerprint className="w-12 h-12" /></div>
+                    <div className="py-4 md:py-6 flex flex-col items-center gap-6 md:gap-8 w-full max-w-3xl text-center">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 w-full">
+                            <div className="glass p-6 md:p-8 rounded-2xl md:rounded-3xl border-white/5 shadow-xl relative overflow-hidden text-left">
+                                <div className="absolute top-0 right-0 p-4 opacity-10"><Fingerprint className="w-10 h-10 md:w-12 md:h-12" /></div>
                                 <label className="text-[10px] font-black text-gray-500 uppercase tracking-widest block mb-4">Input: Ciphertext (C)</label>
-                                <div className="text-xs font-mono text-cyber-purple break-all bg-white/5 p-4 rounded-xl h-32 overflow-y-auto shadow-inner border border-white/5">
+                                <div className="text-[10px] md:text-xs font-mono text-cyber-purple break-all bg-white/5 p-4 rounded-xl h-24 md:h-32 overflow-y-auto shadow-inner border border-white/5">
                                     {c}
                                 </div>
                             </div>
-                            <div className="glass p-8 rounded-3xl border-white/5 shadow-xl relative overflow-hidden text-left">
-                                <div className="absolute top-0 right-0 p-4 opacity-10"><Unlock className="w-12 h-12 text-cyber-green" /></div>
-                                <label className="text-[10px] font-black text-gray-500 uppercase tracking-widest block mb-4">Input: Private Key (d, n)</label>
-                                <div className="space-y-4">
+                            <div className="glass p-6 md:p-8 rounded-2xl md:rounded-3xl border-white/5 shadow-xl relative overflow-hidden text-left">
+                                <div className="absolute top-0 right-0 p-4 opacity-10"><Unlock className="w-10 h-10 md:w-12 md:h-12 text-cyber-green" /></div>
+                                <label className="text-[10px] font-black text-gray-500 uppercase tracking-widest block mb-4">Input: Private Key</label>
+                                <div className="space-y-3 md:space-y-4">
                                     <div>
-                                        <span className="text-[8px] text-gray-500 uppercase block mb-1">Secret Exponent (d)</span>
-                                        <div className="text-xs font-mono text-cyber-green bg-white/5 p-3 rounded-lg truncate">{d?.toString()}</div>
+                                        <span className="text-[8px] text-gray-500 uppercase block mb-1">Secret (d)</span>
+                                        <div className="text-[10px] md:text-xs font-mono text-cyber-green bg-white/5 p-2 md:p-3 rounded-lg truncate">{d?.toString()}</div>
                                     </div>
                                     <div>
-                                        <span className="text-[8px] text-gray-500 uppercase block mb-1">Public Modulus (n)</span>
-                                        <div className="text-xs font-mono text-white/50 bg-white/5 p-3 rounded-lg truncate">{n?.toString()}</div>
+                                        <span className="text-[8px] text-gray-500 uppercase block mb-1">Modulus (n)</span>
+                                        <div className="text-[10px] md:text-xs font-mono text-white/50 bg-white/5 p-2 md:p-3 rounded-lg truncate">{n?.toString()}</div>
                                     </div>
                                 </div>
                             </div>
@@ -310,13 +306,13 @@ const LearningMode = () => {
                 );
             case 5:
                 return (
-                    <div className="py-6 flex flex-col items-center gap-8 w-full max-w-4xl text-center">
-                        <div className="w-full bg-cyber-green/5 border border-cyber-green/20 rounded-[3rem] p-10 text-center shadow-2xl relative overflow-hidden">
-                            <div className="absolute -bottom-10 -right-10 opacity-5 -rotate-12"><Unlock className="w-40 h-40 text-cyber-green" /></div>
-                            <h3 className="text-xs font-black text-cyber-green uppercase mb-8 flex items-center justify-center gap-3 tracking-[0.3em]">
-                                <Cpu className="w-5 h-5" /> Step 5: Decryption Mathematics
+                    <div className="py-4 md:py-6 flex flex-col items-center gap-6 md:gap-8 w-full max-w-4xl text-center">
+                        <div className="w-full bg-cyber-green/5 border border-cyber-green/20 rounded-3xl md:rounded-[3rem] p-6 md:p-10 text-center shadow-2xl relative overflow-hidden">
+                            <div className="absolute -bottom-10 -right-10 opacity-5 -rotate-12"><Unlock className="w-24 h-24 md:w-40 md:h-40 text-cyber-green" /></div>
+                            <h3 className="text-[10px] font-black text-cyber-green uppercase mb-6 md:mb-8 flex items-center justify-center gap-3 tracking-[0.3em]">
+                                <Cpu className="w-4 h-4 md:w-5 md:h-5" /> Step 5: Decryption Math
                             </h3>
-                            <div className="flex items-center justify-center gap-6 text-4xl font-mono font-black text-white mb-10">
+                            <div className="flex items-center justify-center gap-3 md:gap-6 text-xl md:text-4xl font-mono font-black text-white mb-8 md:mb-10">
                                 <span className="text-cyber-purple">c</span>
                                 <span className="text-gray-500">^</span>
                                 <span className="text-cyber-green">d</span>
@@ -325,66 +321,66 @@ const LearningMode = () => {
                                 <span className="text-gray-500">=</span>
                                 <span className="text-cyber-cyan">m</span>
                             </div>
-                            <div className="flex flex-wrap gap-3 justify-center">
+                            <div className="flex flex-wrap gap-2 md:gap-3 justify-center">
                                 {c.split(',').map((num, i) => (
-                                    <div key={i} className="px-4 py-3 bg-white/5 rounded-xl border border-white/10 text-xs font-mono text-white shadow-sm">
+                                    <div key={i} className="px-3 md:px-4 py-2 md:py-3 bg-white/5 rounded-lg md:rounded-xl border border-white/10 text-[10px] md:text-xs font-mono text-white shadow-sm">
                                         {num.substring(0, 6)}.. ^ d mod n
                                     </div>
                                 ))}
                             </div>
                         </div>
-                        <div className="px-8 py-4 bg-cyber-green/10 border border-cyber-green/30 rounded-2xl">
-                            <span className="text-[10px] text-cyber-green font-black uppercase tracking-widest">Transformation: Restoring numerical secret foundation</span>
+                        <div className="px-6 md:px-8 py-3 md:py-4 bg-cyber-green/10 border border-cyber-green/30 rounded-xl md:rounded-2xl">
+                            <span className="text-[10px] text-cyber-green font-black uppercase tracking-widest">Transformation: Restoring Secret Foundation</span>
                         </div>
                     </div>
                 );
             case 6:
                 return (
-                    <div className="py-6 flex flex-col items-center gap-8 w-full max-w-4xl text-center">
+                    <div className="py-4 md:py-6 flex flex-col items-center gap-6 md:gap-8 w-full max-w-4xl text-center">
                         <div className="flex flex-col items-center gap-1 mb-4">
                             <span className="text-[10px] text-gray-500 font-bold uppercase tracking-widest">System Operation</span>
-                            <h3 className="text-xl font-bold text-white uppercase">ASCII to Character Mapping</h3>
+                            <h3 className="text-lg md:text-xl font-bold text-white uppercase">ASCII to Character</h3>
                         </div>
-                        <div className="flex flex-wrap gap-4 justify-center">
+                        <div className="flex flex-wrap gap-3 md:gap-4 justify-center">
                             {recovered.split('').map((char, i) => (
                                 <motion.div key={i} initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ delay: i * 0.1 }} className="flex flex-col items-center gap-2">
-                                    <div className="w-16 h-16 bg-white/5 rounded-2xl flex items-center justify-center text-xl font-mono font-bold text-white border border-white/10 shadow-lg">{char.charCodeAt(0)}</div>
-                                    <ArrowRight className="w-4 h-4 text-gray-600 rotate-90" />
-                                    <div className="w-16 h-16 glass rounded-2xl flex items-center justify-center text-2xl font-black text-cyber-green border-2 border-cyber-green/20">{char}</div>
+                                    <div className="w-12 h-12 md:w-16 md:h-16 bg-white/5 rounded-xl md:rounded-2xl flex items-center justify-center text-lg md:text-xl font-mono font-bold text-white border border-white/10 shadow-lg">{char.charCodeAt(0)}</div>
+                                    <ArrowRight className="w-3 h-3 md:w-4 md:h-4 text-gray-600 rotate-90" />
+                                    <div className="w-12 h-12 md:w-16 md:h-16 glass rounded-xl md:rounded-2xl flex items-center justify-center text-xl md:text-2xl font-black text-cyber-green border-2 border-cyber-green/20">{char}</div>
                                 </motion.div>
                             ))}
                         </div>
-                        <div className="mt-8 p-6 glass rounded-2xl border-white/5 max-w-lg">
-                            <p className="text-xs text-gray-400 leading-relaxed">The decryption math returned numerical codes. Now, the system maps these <span className="text-cyber-green font-bold">ASCII values</span> back to their original human-readable characters.</p>
+                        <div className="mt-6 md:mt-8 p-4 md:p-6 glass rounded-2xl border-white/5 max-w-lg">
+                            <p className="text-[10px] md:text-xs text-gray-400 leading-relaxed">The decryption math returned numerical codes. Now, the system maps these <span className="text-cyber-green font-bold">ASCII values</span> back to their original characters.</p>
                         </div>
                     </div>
                 );
             case 7:
                 return (
-                    <div className="py-6 flex flex-col items-center gap-8 w-full max-w-4xl text-center">
+                    <div className="py-4 md:py-6 flex flex-col items-center gap-6 md:gap-8 w-full max-w-4xl text-center">
                         <div className="flex flex-col items-center gap-1 mb-2">
-                            <span className="text-[10px] text-cyber-cyan font-black uppercase tracking-[0.5em] mb-4">Final Results: Integrity Analysis</span>
+                            <span className="text-[10px] text-cyber-cyan font-black uppercase tracking-[0.5em] mb-4">Integrity: Analysis Result</span>
                             <motion.div
                                 initial={{ scale: 0.8, opacity: 0 }}
                                 animate={{ scale: 1, opacity: 1 }}
-                                className="px-16 py-10 glass-cyan border-cyber-green/50 rounded-[4rem] text-7xl font-black text-white glow-cyan tracking-[0.4em] uppercase shadow-[0_0_60px_rgba(34,211,238,0.3)] border-2 mb-8"
+                                className="px-10 md:px-16 py-6 md:py-10 glass-cyan border-cyber-green/50 rounded-3xl md:rounded-[4rem] text-4xl md:text-7xl font-black text-white glow-cyan tracking-[0.4em] uppercase shadow-[0_0_60px_rgba(34,211,238,0.3)] border-2 mb-8"
                             >
                                 {recovered}
                             </motion.div>
                         </div>
-                        <div className="grid grid-cols-2 gap-8 w-full max-w-lg mt-4">
-                            <div className="p-6 glass rounded-2xl border-white/5">
+                        <div className="grid grid-cols-2 gap-4 md:gap-8 w-full max-w-lg mt-4">
+                            <div className="p-4 md:p-6 glass rounded-xl md:rounded-2xl border-white/5">
                                 <span className="text-[8px] text-gray-500 uppercase block mb-1">Decoded ASCII</span>
                                 <div className="flex gap-2 justify-center">
                                     {recovered.split('').map((char, i) => (
-                                        <span key={i} className="text-xs font-mono text-white/50">{char.charCodeAt(0)}</span>
+                                        <span key={i} className="text-[10px] font-mono text-white/50">{char.charCodeAt(0)}</span>
                                     ))}
                                 </div>
                             </div>
-                            <div className="p-6 glass rounded-2xl border-cyber-green/20">
+                            <div className="p-4 md:p-6 glass rounded-xl md:rounded-2xl border-cyber-green/20">
                                 <span className="text-[8px] text-cyber-green uppercase block mb-1">Integrity Check</span>
-                                <div className="flex items-center justify-center gap-2 text-cyber-green font-bold">
-                                    <CheckCircle className="w-4 h-4" /> SECURE MATCH
+                                <div className="flex items-center justify-center gap-2 text-cyber-green text-[10px] md:text-xs font-bold">
+                                    <CheckCircle className="w-3 h-3 md:w-4 md:h-4" /> SECURE MATCH
                                 </div>
                             </div>
                         </div>
@@ -395,38 +391,38 @@ const LearningMode = () => {
     };
 
     return (
-        <div className="max-w-6xl mx-auto px-4 py-8 flex flex-col min-h-[85vh]">
-            <div className="flex flex-col md:flex-row justify-between items-center mb-10 gap-6">
-                <div>
-                    <h1 className="text-4xl font-black text-white mb-2 flex items-center gap-3 tracking-tighter">
-                        <Sparkles className="w-8 h-8 text-cyber-cyan" /> RSA LEARNING MODE
+        <div className="max-w-6xl mx-auto px-4 py-6 md:py-8 flex flex-col min-h-[85vh]">
+            <div className="flex flex-col md:flex-row justify-between items-center mb-8 md:mb-10 gap-6">
+                <div className="text-center md:text-left">
+                    <h1 className="text-2xl md:text-4xl font-black text-white mb-2 flex items-center justify-center md:justify-start gap-3 tracking-tighter">
+                        <Sparkles className="w-6 h-6 md:w-8 md:h-8 text-cyber-cyan" /> RSA LEARNING MODE
                     </h1>
-                    <div className="flex items-center gap-4 text-[10px] font-bold text-gray-500 uppercase tracking-widest">
+                    <div className="flex items-center justify-center md:justify-start gap-4 text-[9px] md:text-[10px] font-bold text-gray-500 uppercase tracking-widest">
                         <span>Current Focus: {steps[step].module}</span>
                         <div className="w-1 h-1 rounded-full bg-white/20"></div>
                         <span>Simulation Active</span>
                     </div>
                 </div>
 
-                <div className="flex gap-4 p-1.5 glass rounded-2xl border-white/10 shadow-xl">
+                <div className="flex gap-4 p-1 md:p-1.5 glass rounded-xl md:rounded-2xl border-white/10 shadow-xl">
                     <button
                         onClick={() => setAutoPlay(!autoPlay)}
-                        className={`px-6 py-2.5 rounded-xl text-xs font-black transition-all flex items-center gap-2 ${autoPlay ? 'bg-rose-500/20 text-rose-500 border border-rose-500/30' : 'bg-cyber-cyan text-cyber-black'}`}
+                        className={`px-4 md:px-6 py-2 md:py-2.5 rounded-lg md:rounded-xl text-[10px] md:text-xs font-black transition-all flex items-center gap-2 ${autoPlay ? 'bg-rose-500/20 text-rose-500 border border-rose-500/30' : 'bg-cyber-cyan text-cyber-black'}`}
                     >
-                        {autoPlay ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4" />}
-                        {autoPlay ? 'PAUSE TUTORIAL' : 'AUTO-PLAY'}
+                        {autoPlay ? <Pause className="w-3 h-3 md:w-4 md:h-4" /> : <Play className="w-3 h-3 md:w-4 md:h-4" />}
+                        {autoPlay ? 'PAUSE' : 'AUTO-PLAY'}
                     </button>
                     <button
                         onClick={() => { setStep(0); setAutoPlay(false); }}
-                        className="p-2.5 glass-cyan rounded-xl text-white hover:glow-cyan transition-all border border-white/10"
+                        className="p-2 md:p-2.5 glass-cyan rounded-lg md:rounded-xl text-white hover:glow-cyan transition-all border border-white/10"
                         title="Reset Tutorial"
                     >
-                        <RotateCcw className="w-5 h-5" />
+                        <RotateCcw className="w-4 h-4 md:w-5 md:h-5" />
                     </button>
                 </div>
             </div>
 
-            <div className="flex-grow glass rounded-[3.5rem] border-white/5 relative overflow-hidden flex flex-col items-center justify-center p-8 min-h-[500px] shadow-2xl bg-gradient-to-br from-white/[0.02] to-transparent">
+            <div className="flex-grow glass rounded-3xl md:rounded-[3.5rem] relative overflow-hidden flex flex-col items-center justify-center p-6 md:p-8 min-h-[450px] md:min-h-[500px] shadow-2xl bg-gradient-to-br from-white/[0.02] to-transparent">
                 <AnimatePresence mode="wait">
                     <motion.div
                         key={step}
@@ -435,31 +431,31 @@ const LearningMode = () => {
                         exit={{ opacity: 0, x: -20 }}
                         className="w-full flex flex-col items-center"
                     >
-                        <div className="text-center mb-12">
-                            <div className="text-cyber-cyan text-[10px] font-black uppercase tracking-[0.5em] mb-4 border-2 border-cyber-cyan/30 px-6 py-2 rounded-full inline-block bg-cyber-cyan/5 shadow-[0_0_20px_rgba(0,242,255,0.15)]">
+                        <div className="text-center mb-8 md:mb-12">
+                            <div className="text-cyber-cyan text-[8px] md:text-[10px] font-black uppercase tracking-[0.3em] md:tracking-[0.5em] mb-4 border-2 border-cyber-cyan/30 px-4 md:px-6 py-1.5 md:py-2 rounded-full inline-block bg-cyber-cyan/5 shadow-[0_0_20px_rgba(0,242,255,0.15)]">
                                 {steps[step].module}
                             </div>
-                            <h2 className="text-5xl font-black text-white mb-2 uppercase tracking-tighter">
+                            <h2 className="text-3xl md:text-5xl font-black text-white mb-2 uppercase tracking-tighter">
                                 {steps[step].title}
                             </h2>
-                            <p className="text-gray-400 text-sm max-w-lg mx-auto leading-relaxed border-t border-white/5 pt-6 mt-4 mb-8">
+                            <p className="text-gray-400 text-xs md:text-sm max-w-lg mx-auto leading-relaxed border-t border-white/5 pt-4 md:pt-6 mt-4 mb-6 md:mb-8">
                                 {steps[step].desc}
                             </p>
 
-                            <div className="flex justify-center gap-6 items-center">
+                            <div className="flex flex-col md:flex-row justify-center gap-4 md:gap-6 items-center">
                                 <button
                                     onClick={() => setStep(Math.max(0, step - 1))}
                                     disabled={step === 0}
-                                    className="px-8 py-3 glass rounded-2xl text-[10px] font-black text-white hover:bg-white/10 disabled:opacity-30 disabled:cursor-not-allowed transition-all uppercase tracking-widest border border-white/10 shadow-lg"
+                                    className="w-full md:w-auto px-6 md:px-8 py-2.5 md:py-3 glass rounded-xl md:rounded-2xl text-[10px] font-black text-white hover:bg-white/10 disabled:opacity-30 disabled:cursor-not-allowed transition-all uppercase tracking-widest border border-white/10 shadow-lg"
                                 >
                                     Previous Step
                                 </button>
 
-                                <div className="flex gap-3">
+                                <div className="flex gap-2 md:gap-3">
                                     {steps.map((_, i) => (
                                         <div
                                             key={i}
-                                            className={`h-2 rounded-full transition-all duration-500 ${i === step ? 'w-12 bg-cyber-cyan glow-cyan' : i < step ? 'w-4 bg-cyber-green/50' : 'w-2 bg-white/10'}`}
+                                            className={`h-1.5 md:h-2 rounded-full transition-all duration-500 ${i === step ? 'w-8 md:w-12 bg-cyber-cyan glow-cyan' : i < step ? 'w-3 md:w-4 bg-cyber-green/50' : 'w-1.5 md:w-2 bg-white/10'}`}
                                         />
                                     ))}
                                 </div>
@@ -467,7 +463,7 @@ const LearningMode = () => {
                                 <button
                                     onClick={() => setStep(Math.min(steps.length - 1, step + 1))}
                                     disabled={step === steps.length - 1}
-                                    className="px-10 py-3 bg-cyber-cyan text-cyber-black rounded-2xl text-[10px] font-black hover:scale-105 transition-all shadow-xl shadow-cyber-cyan/30 uppercase tracking-[0.2em]"
+                                    className="w-full md:w-auto px-8 md:px-10 py-2.5 md:py-3 bg-cyber-cyan text-cyber-black rounded-xl md:rounded-2xl text-[10px] font-black hover:scale-105 transition-all shadow-xl shadow-cyber-cyan/30 uppercase tracking-[0.2em]"
                                 >
                                     Next Step
                                 </button>
@@ -477,13 +473,13 @@ const LearningMode = () => {
                     </motion.div>
                 </AnimatePresence>
 
-                <div className="mt-auto w-full pt-6 border-t border-white/5 flex flex-col items-center">
-                    <div className="bg-white/5 px-6 py-3 rounded-2xl border border-white/5 max-w-2xl text-center">
-                        <div className="flex items-center justify-center gap-2 mb-2">
-                            <BookOpen className="w-4 h-4 text-cyber-cyan" />
-                            <span className="text-[10px] font-black text-cyber-cyan uppercase tracking-widest">Learning Insight</span>
+                <div className="mt-auto w-full pt-4 md:pt-6 border-t border-white/5 flex flex-col items-center">
+                    <div className="bg-white/5 px-4 md:px-6 py-2.5 md:py-3 rounded-xl md:rounded-2xl border border-white/5 max-w-2xl text-center">
+                        <div className="flex items-center justify-center gap-2 mb-1.5 md:mb-2">
+                            <BookOpen className="w-3.5 h-3.5 md:w-4 md:h-4 text-cyber-cyan" />
+                            <span className="text-[9px] md:text-[10px] font-black text-cyber-cyan uppercase tracking-widest">Learning Insight</span>
                         </div>
-                        <p className="text-[11px] text-gray-400 leading-relaxed font-medium">
+                        <p className="text-[10px] md:text-[11px] text-gray-400 leading-relaxed font-medium">
                             {step === 0 && "Key Generation is the foundation. Primes P and Q must be secret and large for real security."}
                             {step === 1 && "Start by choosing a message. RSA will encrypt each individual character's numerical value."}
                             {step === 2 && "ASCII is the bridge between text and math. Every 'A' is 65, every 'B' is 66, and so on."}
@@ -497,35 +493,35 @@ const LearningMode = () => {
                 </div>
             </div>
 
-            <div className="mt-10 flex flex-col md:flex-row justify-center gap-8">
-                <div className="flex items-center gap-3 px-6 py-4 glass rounded-2xl border-white/5">
-                    <div className="p-3 bg-cyber-cyan/10 rounded-xl"><Lock className="w-5 h-5 text-cyber-cyan" /></div>
+            <div className="mt-8 md:mt-10 flex flex-col md:flex-row justify-center gap-4 md:gap-8">
+                <div className="flex items-center gap-3 px-4 md:px-6 py-3 md:py-4 glass rounded-xl md:rounded-2xl border-white/5">
+                    <div className="p-2.5 md:p-3 bg-cyber-cyan/10 rounded-lg md:rounded-xl"><Lock className="w-4 h-4 md:w-5 md:h-5 text-cyber-cyan" /></div>
                     <div>
-                        <div className="text-[10px] font-black text-gray-500 uppercase tracking-widest">Public Layer</div>
-                        <div className="text-white font-mono text-xs">{e.toString()}, {n?.toString().substring(0, 10)}...</div>
+                        <div className="text-[9px] md:text-[10px] font-black text-gray-500 uppercase tracking-widest">Public Layer</div>
+                        <div className="text-white font-mono text-[10px] md:text-xs">{e.toString()}, {n?.toString().substring(0, 10)}...</div>
                     </div>
                 </div>
-                <div className="flex items-center gap-3 px-6 py-4 glass rounded-2xl border-white/5">
-                    <div className="p-3 bg-cyber-green/10 rounded-xl"><Unlock className="w-5 h-5 text-cyber-green" /></div>
+                <div className="flex items-center gap-3 px-4 md:px-6 py-3 md:py-4 glass rounded-xl md:rounded-2xl border-white/5">
+                    <div className="p-2.5 md:p-3 bg-cyber-green/10 rounded-lg md:rounded-xl"><Unlock className="w-4 h-4 md:w-5 md:h-5 text-cyber-green" /></div>
                     <div>
-                        <div className="text-[10px] font-black text-gray-500 uppercase tracking-widest">Private Layer</div>
-                        <div className="text-white font-mono text-xs">{d?.toString().substring(0, 10)}...</div>
+                        <div className="text-[9px] md:text-[10px] font-black text-gray-500 uppercase tracking-widest">Private Layer</div>
+                        <div className="text-white font-mono text-[10px] md:text-xs">{d?.toString().substring(0, 10)}...</div>
                     </div>
                 </div>
             </div>
 
             {showSuccessModal && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
-                    <motion.div initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} className="glass-cyan p-12 rounded-[4rem] text-center max-w-lg border-2 border-cyber-green/50 shadow-[0_0_100px_rgba(34,211,238,0.2)]">
-                        <div className="w-24 h-24 bg-cyber-green/20 rounded-full flex items-center justify-center mx-auto mb-8 shadow-[0_0_40px_rgba(16,185,129,0.3)]">
-                            <CheckCircle className="w-12 h-12 text-cyber-green" />
+                    <motion.div initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} className="glass-cyan p-8 md:p-12 rounded-[2.5rem] md:rounded-[4rem] text-center max-w-lg border-2 border-cyber-green/50 shadow-[0_0_100px_rgba(34,211,238,0.2)]">
+                        <div className="w-16 h-16 md:w-24 md:h-24 bg-cyber-green/20 rounded-full flex items-center justify-center mx-auto mb-6 md:mb-8 shadow-[0_0_40px_rgba(16,185,129,0.3)]">
+                            <CheckCircle className="w-8 h-8 md:w-12 md:h-12 text-cyber-green" />
                         </div>
-                        <h2 className="text-4xl font-black text-white mb-4 uppercase tracking-tighter">RSA Integrity Verified</h2>
-                        <p className="text-gray-400 text-lg mb-10 leading-relaxed">
-                            The message <span className="text-cyber-cyan font-bold">"{m}"</span> was successfully transformed into ciphertext and recovered using the mathematical magic of RSA.
+                        <h2 className="text-2xl md:text-4xl font-black text-white mb-4 uppercase tracking-tighter">RSA Verified</h2>
+                        <p className="text-gray-400 text-sm md:text-lg mb-8 md:mb-10 leading-relaxed">
+                            The message <span className="text-cyber-cyan font-bold">"{m}"</span> was successfully transformed and recovered using RSA.
                         </p>
-                        <button onClick={() => setShowSuccessModal(false)} className="w-full py-5 bg-cyber-cyan text-cyber-black rounded-3xl font-black uppercase tracking-[0.3em] hover:scale-105 transition-all shadow-xl shadow-cyber-cyan/30">
-                            Dismiss Verification
+                        <button onClick={() => setShowSuccessModal(false)} className="w-full py-4 md:py-5 bg-cyber-cyan text-cyber-black rounded-2xl md:rounded-3xl font-black uppercase tracking-widest md:tracking-[0.3em] hover:scale-105 transition-all shadow-xl shadow-cyber-cyan/30">
+                            Dismiss
                         </button>
                     </motion.div>
                 </div>

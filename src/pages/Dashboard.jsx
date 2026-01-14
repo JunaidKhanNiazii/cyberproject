@@ -40,7 +40,12 @@ const Dashboard = () => {
             }));
             setHistory(historyData);
         }, (err) => {
-            console.error("Firestore error:", err);
+            console.error("CRITICAL Firestore Error:", err);
+            console.error("Error Code:", err.code);
+            console.error("Error Message:", err.message);
+            if (err.message.includes('index')) {
+                console.warn("ACTION REQUIRED: A composite index is likely missing. Check the link above in the Firestore error log to create it.");
+            }
         });
 
         return () => unsubscribe();
@@ -142,7 +147,7 @@ const Dashboard = () => {
     };
 
     return (
-        <div className="max-w-7xl mx-auto px-4 py-12">
+        <div className="max-w-7xl mx-auto px-4 py-8 md:py-12">
             {/* Success Modal */}
             <AnimatePresence>
                 {showSuccessModal && (
@@ -158,16 +163,16 @@ const Dashboard = () => {
                             initial={{ scale: 0.9, opacity: 0, y: 20 }}
                             animate={{ scale: 1, opacity: 1, y: 0 }}
                             exit={{ scale: 0.9, opacity: 0, y: 20 }}
-                            className="relative glass-cyan max-w-md w-full p-10 rounded-[2.5rem] text-center border-cyber-cyan shadow-[0_0_50px_rgba(0,242,255,0.2)]"
+                            className="relative glass-cyan max-w-md w-full p-6 md:p-10 rounded-2xl md:rounded-[2.5rem] text-center border-cyber-cyan shadow-[0_0_50px_rgba(0,242,255,0.2)]"
                         >
-                            <div className="w-20 h-20 bg-cyber-cyan/20 rounded-full flex items-center justify-center text-cyber-cyan mx-auto mb-6 shadow-[0_0_20px_rgba(0,242,255,0.3)]">
-                                <CheckCircle className="w-10 h-10" />
+                            <div className="w-16 h-16 md:w-20 md:h-20 bg-cyber-cyan/20 rounded-full flex items-center justify-center text-cyber-cyan mx-auto mb-6 shadow-[0_0_20px_rgba(0,242,255,0.3)]">
+                                <CheckCircle className="w-8 h-8 md:w-10 md:h-10" />
                             </div>
-                            <h2 className="text-3xl font-bold text-white mb-2">Message Verified</h2>
-                            <p className="text-gray-400 mb-8">Decryption match confirmed. The recovered plaintext is identical to the original input.</p>
+                            <h2 className="text-2xl md:text-3xl font-bold text-white mb-2">Message Verified</h2>
+                            <p className="text-sm md:text-base text-gray-400 mb-8">Decryption match confirmed. The recovered plaintext is identical to the original input.</p>
                             <button
                                 onClick={() => setShowSuccessModal(false)}
-                                className="w-full py-4 bg-cyber-cyan text-cyber-black font-bold rounded-2xl hover:bg-white transition-all"
+                                className="w-full py-4 bg-cyber-cyan text-cyber-black font-bold rounded-xl md:rounded-2xl hover:bg-white transition-all"
                             >
                                 Acknowledge
                             </button>
@@ -176,19 +181,19 @@ const Dashboard = () => {
                 )}
             </AnimatePresence>
 
-            <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-4">
-                <div>
-                    <h1 className="text-4xl font-bold text-white mb-2">Cryptography Dashboard</h1>
-                    <p className="text-gray-400">Manage RSA components and perform secure cryptographic operations.</p>
+            <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-8 md:mb-12 gap-6">
+                <div className="text-left w-full">
+                    <h1 className="text-3xl md:text-4xl font-bold text-white mb-2">Cryptography Dashboard</h1>
+                    <p className="text-sm md:text-base text-gray-400">Manage RSA components and perform secure cryptographic operations.</p>
                 </div>
-                <div className="flex gap-4">
-                    <div className="flex items-center gap-2 px-3 py-1.5 glass rounded-lg border-cyber-green/30 text-cyber-green text-xs font-mono">
+                <div className="flex gap-4 w-full md:w-auto">
+                    <div className="flex items-center gap-2 px-3 py-1.5 glass rounded-lg border-cyber-green/30 text-cyber-green text-[10px] md:text-xs font-mono w-full md:w-auto justify-center">
                         <Activity className="w-3 h-3" /> SYSTEM STATUS: OPTIMAL
                     </div>
                 </div>
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 md:gap-8">
                 {/* Key Generator Panel */}
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
@@ -462,7 +467,7 @@ const Dashboard = () => {
                                 initial={{ opacity: 0, x: -20 }}
                                 animate={{ opacity: 1, x: 0 }}
                                 transition={{ delay: index * 0.1 }}
-                                className="glass p-4 rounded-2xl border-white/5 flex flex-col md:flex-row md:items-center justify-between gap-4 group hover:bg-white/5 transition-all"
+                                className="glass p-4 rounded-xl md:rounded-2xl border-white/5 flex flex-col md:flex-row md:items-center justify-between gap-4 group hover:bg-white/5 transition-all"
                             >
                                 <div className="flex items-center gap-4">
                                     <div className={`w-8 h-8 rounded-lg flex items-center justify-center border ${item.type === 'Encryption'
@@ -471,22 +476,22 @@ const Dashboard = () => {
                                         }`}>
                                         {item.type === 'Encryption' ? <Lock className="w-4 h-4" /> : <Unlock className="w-4 h-4" />}
                                     </div>
-                                    <div>
-                                        <p className="text-xs font-black text-white uppercase tracking-wider">{item.type}</p>
-                                        <p className="text-[9px] text-gray-500 font-mono">
+                                    <div className="flex-grow">
+                                        <p className="text-[10px] md:text-xs font-black text-white uppercase tracking-wider">{item.type}</p>
+                                        <p className="text-[8px] md:text-[9px] text-gray-500 font-mono">
                                             {item.timestamp?.toDate().toLocaleString()}
                                         </p>
                                     </div>
                                 </div>
 
-                                <div className="flex-grow grid grid-cols-1 md:grid-cols-2 gap-4 max-w-2xl">
-                                    <div className="bg-black/20 p-2 rounded-lg border border-white/5">
-                                        <span className="text-[8px] text-gray-600 block mb-1 uppercase font-bold">Input</span>
-                                        <p className="text-[10px] font-mono text-gray-300 truncate">{item.input}</p>
+                                <div className="flex-grow grid grid-cols-2 lg:grid-cols-2 gap-3 md:gap-4 w-full md:max-w-2xl">
+                                    <div className="bg-black/20 p-2 rounded-lg border border-white/5 overflow-hidden">
+                                        <span className="text-[7px] md:text-[8px] text-gray-600 block mb-1 uppercase font-bold">Input</span>
+                                        <p className="text-[9px] md:text-[10px] font-mono text-gray-300 truncate">{item.input}</p>
                                     </div>
-                                    <div className="bg-black/20 p-2 rounded-lg border border-white/5">
-                                        <span className="text-[8px] text-gray-600 block mb-1 uppercase font-bold">Output</span>
-                                        <p className="text-[10px] font-mono text-cyber-cyan truncate">{item.output}</p>
+                                    <div className="bg-black/20 p-2 rounded-lg border border-white/5 overflow-hidden">
+                                        <span className="text-[7px] md:text-[8px] text-gray-600 block mb-1 uppercase font-bold">Output</span>
+                                        <p className="text-[9px] md:text-[10px] font-mono text-cyber-cyan truncate">{item.output}</p>
                                     </div>
                                 </div>
                             </motion.div>
@@ -494,7 +499,7 @@ const Dashboard = () => {
                     ) : (
                         <div className="text-center py-12 glass rounded-3xl border-dashed border-white/10">
                             <Activity className="w-12 h-12 text-gray-700 mx-auto mb-4 opacity-20" />
-                            <p className="text-gray-600 text-[10px] font-black uppercase tracking-widest">No activity detected in the current neural session</p>
+                            <p className="text-gray-600 text-[10px] font-black uppercase tracking-widest px-4">No activity detected in the current neural session</p>
                         </div>
                     )}
                 </div>
