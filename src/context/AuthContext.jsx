@@ -7,7 +7,8 @@ import {
     signInWithEmailAndPassword,
     updateProfile
 } from 'firebase/auth';
-import { auth, googleProvider } from '../firebase/config';
+import { auth, googleProvider, db } from '../firebase/config';
+import { doc, setDoc, serverTimestamp } from 'firebase/firestore';
 
 const AuthContext = createContext();
 
@@ -34,9 +35,24 @@ export const AuthProvider = ({ children }) => {
     };
 
     useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+        const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
             setUser(currentUser);
             setLoading(false);
+
+            if (currentUser) {
+                // Sync user to Firestore
+                try {
+                    await setDoc(doc(db, 'users', currentUser.uid), {
+                        uid: currentUser.uid,
+                        email: currentUser.email,
+                        displayName: currentUser.displayName || currentUser.email.split('@')[0],
+                        photoURL: currentUser.photoURL,
+                        lastActive: serverTimestamp()
+                    }, { merge: true });
+                } catch (error) {
+                    console.error("Error syncing user to Firestore:", error);
+                }
+            }
         });
         return unsubscribe;
     }, []);

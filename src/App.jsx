@@ -4,6 +4,7 @@ import MainLayout from './components/layouts/MainLayout';
 import Home from './pages/Home';
 import Dashboard from './pages/Dashboard';
 import LearningMode from './pages/LearningMode';
+import SecureMessages from './pages/SecureMessages';
 import Services from './pages/Services';
 import About from './pages/About';
 import Contact from './pages/Contact';
@@ -29,6 +30,11 @@ function App() {
             <Route path="/learning" element={
               <ProtectedRoute>
                 <LearningMode />
+              </ProtectedRoute>
+            } />
+            <Route path="/secure-messages" element={
+              <ProtectedRoute>
+                <SecureMessages />
               </ProtectedRoute>
             } />
             <Route path="/services" element={<Services />} />

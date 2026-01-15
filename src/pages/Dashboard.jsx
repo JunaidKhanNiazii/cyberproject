@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Key, Shield, Lock, Unlock, Copy, RefreshCw, Cpu, Activity, AlertCircle, CheckCircle } from 'lucide-react';
 import { db } from '../firebase/config';
-import { collection, addDoc, query, where, orderBy, onSnapshot, serverTimestamp } from 'firebase/firestore';
+import { collection, addDoc, query, where, orderBy, onSnapshot, serverTimestamp, doc, updateDoc, setDoc } from 'firebase/firestore';
 import { useAuth } from '../context/AuthContext';
 import { generateRSA, encrypt, decrypt, calculateRSA, generateRandomPrime, isPrime } from '../utils/rsa';
 
@@ -140,6 +140,47 @@ const Dashboard = () => {
         setCopyStatus(type);
         setTimeout(() => setCopyStatus(''), 2000);
     };
+    const [publishLoading, setPublishLoading] = useState(false);
+    const [vaultLoading, setVaultLoading] = useState(false);
+
+    const publishIdentity = async () => {
+        if (!user || !keys) return;
+        setPublishLoading(true);
+        try {
+            await updateDoc(doc(db, 'users', user.uid), {
+                publicKey: {
+                    e: keys.e.toString(),
+                    n: keys.n.toString()
+                },
+                keyPublishedAt: serverTimestamp()
+            });
+            setCopyStatus('identity_published');
+            setTimeout(() => setCopyStatus(''), 2000);
+        } catch (error) {
+            console.error("Failed to publish identity:", error);
+        } finally {
+            setPublishLoading(false);
+        }
+    };
+
+    const vaultPrivateKey = async () => {
+        if (!user || !keys) return;
+        setVaultLoading(true);
+        try {
+            // Store private key in a subcollection for better security rules separation
+            await setDoc(doc(db, 'users', user.uid, 'vault', 'private_key'), {
+                d: keys.d.toString(),
+                n: keys.n.toString(),
+                vaultedAt: serverTimestamp()
+            });
+            setCopyStatus('private_key_vaulted');
+            setTimeout(() => setCopyStatus(''), 2000);
+        } catch (error) {
+            console.error("Failed to vault private key:", error);
+        } finally {
+            setVaultLoading(false);
+        }
+    };
 
     return (
         <div className="max-w-7xl mx-auto px-4 py-8 md:py-12">
@@ -255,6 +296,26 @@ const Dashboard = () => {
                                     >
                                         <RefreshCw className={`w-3 h-3 ${isLoading ? 'animate-spin' : ''}`} /> REGENERATE SYSTEM KEYS
                                     </button>
+
+                                    <div className="pt-4 border-t border-white/5 space-y-3">
+                                        <button
+                                            onClick={publishIdentity}
+                                            disabled={publishLoading}
+                                            className="w-full py-3 bg-cyber-cyan/10 border border-cyber-cyan/30 text-cyber-cyan rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-cyber-cyan hover:text-cyber-black transition-all flex items-center justify-center gap-2"
+                                        >
+                                            <RefreshCw className={`w-3 h-3 ${publishLoading ? 'animate-spin' : ''}`} /> Publish Public Identity
+                                        </button>
+                                        <button
+                                            onClick={vaultPrivateKey}
+                                            disabled={vaultLoading}
+                                            className="w-full py-3 bg-cyber-purple/10 border border-cyber-purple/30 text-cyber-purple rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-cyber-purple hover:text-white transition-all flex items-center justify-center gap-2"
+                                        >
+                                            <Shield className={`w-3 h-3 ${vaultLoading ? 'animate-spin' : ''}`} /> Vault Private Key
+                                        </button>
+                                        <p className="text-[8px] text-gray-600 text-center uppercase font-bold">
+                                            Broadcasting your public key allows others to send you secure messages.
+                                        </p>
+                                    </div>
                                 </div>
                             )
                         ) : (
@@ -431,7 +492,9 @@ const Dashboard = () => {
                     animate={{ opacity: 1, y: 0 }}
                     className="fixed bottom-8 right-8 px-6 py-3 glass border-cyber-cyan text-cyber-cyan rounded-full font-bold shadow-2xl z-50"
                 >
-                    Copied {copyStatus.toUpperCase()} to clipboard
+                    {copyStatus === 'identity_published' && "Identity broadcasted to system"}
+                    {copyStatus === 'private_key_vaulted' && "Private key secured in vault"}
+                    {copyStatus !== 'identity_published' && copyStatus !== 'private_key_vaulted' && `Copied ${copyStatus.toUpperCase()} to clipboard`}
                 </motion.div>
             )}
 
