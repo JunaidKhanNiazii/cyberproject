@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import {
     onAuthStateChanged,
-    signInWithPopup,
+    signInWithRedirect,
     signOut,
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
@@ -27,7 +27,7 @@ export const AuthProvider = ({ children }) => {
     };
 
     const loginWithGoogle = () => {
-        return signInWithPopup(auth, googleProvider);
+        return signInWithRedirect(auth, googleProvider);
     };
 
     const logout = () => {
